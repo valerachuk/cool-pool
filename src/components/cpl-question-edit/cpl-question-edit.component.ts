@@ -29,62 +29,35 @@ import {
     VSwitch,
     VTextarea,
   },
+  props: {
+    deletable: {
+      type: Boolean,
+      required: true,
+    },
+  },
 })
 export default class CplQuestionEdit extends Vue {
   public questionTypes = [
     {
-      text: 'Short answer',
-      value: 'shortAnswer',
+      text: 'Single chose',
+      value: false,
     },
     {
-      text: 'Paragraph',
-      value: 'paragraph',
-    },
-    {
-      divider: true,
-    },
-    {
-      text: 'Checkboxes',
-      value: 'checkboxes',
-    },
-    {
-      text: 'Radiobuttons',
-      value: 'radiobuttons',
-    },
-    {
-      divider: true,
-    },
-    {
-      text: 'Date',
-      value: 'date',
-    },
-    {
-      text: 'Time',
-      value: 'time',
+      text: 'Multiple chose',
+      value: true,
     },
   ];
 
-  public questionType = this.questionTypes[0].value!;
-
-  public radiobuttons: Array<{ text: string }> = [
-    { text: '' },
+  public answerOptions: Array<{ text: string }> = [
+    {
+      text: '',
+    },
   ];
 
-  public checkboxes: Array<{ text: string }> = [
-    { text: '' },
-  ];
+  public isMultipleChoise = false;
 
   public required = true;
 
   public questionText = '';
 
-  public getValues() {
-    return {
-      questionText: this.questionText,
-      questionType: this.questionType,
-      required: this.required,
-      checkboxes: this.questionType === 'checkboxes' ? this.checkboxes : undefined,
-      radiobuttons: this.questionType === 'radiobuttons' ? this.radiobuttons : undefined,
-    };
-  }
 }
