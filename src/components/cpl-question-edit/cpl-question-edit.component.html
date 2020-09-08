@@ -1,0 +1,93 @@
+<v-card class="my-4">
+
+  <div class="drag-handle d-flex justify-center">
+    <v-icon>mdi-drag-horizontal</v-icon>
+  </div>
+
+  <v-card-text class="pb-9 pt-0">
+    <div class="d-flex flex-wrap">
+      <v-textarea hide-details filled auto-grow rows="1" placeholder="Question" class="mr-10 question-textarea"
+        v-model="questionText">
+      </v-textarea>
+      <v-select hide-details outlined :items="questionTypes" v-model="questionType" class="question-type-select">
+      </v-select>
+    </div>
+
+    <v-text-field v-if="questionType == 'shortAnswer'" class="input-short-disabled" hide-details disabled
+      placeholder="Short answer text"></v-text-field>
+
+    <v-text-field v-else-if="questionType == 'paragraph'" class="input-long-disabled" hide-details disabled
+      placeholder="Long answer text"></v-text-field>
+
+    <v-text-field v-else-if="questionType == 'date'" class="input-date-disabled" hide-details disabled
+      placeholder="Month, day, year" append-icon="mdi-calendar"></v-text-field>
+
+    <v-text-field v-else-if="questionType == 'time'" class="input-time-disabled" hide-details disabled
+      placeholder="Time" append-icon="mdi-clock"></v-text-field>
+
+    <template v-else-if="questionType == 'radiobuttons'">
+      <v-text-field v-for="(rbutton, idx) of radiobuttons" :key="idx" v-model="rbutton.text" hide-details
+        :append-outer-icon="radiobuttons.length !== 1 ? 'mdi-trash-can-outline' : ''" placeholder="Option"
+        prepend-icon="mdi-checkbox-blank-circle-outline" @click:append-outer="radiobuttons.splice(idx, 1)">
+      </v-text-field>
+
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn fab small color="primary" class="mt-4 mb-n5 ml-n2" v-bind="attrs" v-on="on"
+            @click="radiobuttons.push({ text: '' })">
+            <v-icon>mdi-plus</v-icon>
+          </v-btn>
+        </template>
+        <span>Add</span>
+      </v-tooltip>
+    </template>
+
+    <template v-else-if="questionType == 'checkboxes'">
+      <v-text-field v-for="(checkbox, idx) of checkboxes" :key="idx" v-model="checkbox.text" hide-details
+        :append-outer-icon="checkboxes.length !== 1 ? 'mdi-trash-can-outline' : ''" placeholder="Option"
+        prepend-icon="mdi-checkbox-blank-outline" @click:append-outer="checkboxes.splice(idx, 1)"></v-text-field>
+
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn fab small color="primary" class="mt-4 mb-n5 ml-n2" v-bind="attrs" v-on="on"
+            @click="checkboxes.push({ text: '' })">
+            <v-icon>mdi-plus</v-icon>
+          </v-btn>
+        </template>
+        <span>Add</span>
+      </v-tooltip>
+    </template>
+
+  </v-card-text>
+
+  <v-divider></v-divider>
+
+  <v-card-actions>
+
+    <v-spacer></v-spacer>
+
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn icon v-bind="attrs" v-on="on">
+          <v-icon>mdi-trash-can-outline</v-icon>
+        </v-btn>
+      </template>
+      <span>Delete</span>
+    </v-tooltip>
+
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn icon v-bind="attrs" v-on="on">
+          <v-icon>mdi-content-copy</v-icon>
+        </v-btn>
+      </template>
+      <span>Duplicate</span>
+    </v-tooltip>
+
+    <v-divider vertical class="mx-4"></v-divider>
+
+    <span>Required</span>
+    <v-switch v-model="required" hide-details class="ml-3 mt-0 pt-0"></v-switch>
+  </v-card-actions>
+
+</v-card>
