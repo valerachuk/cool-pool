@@ -4,7 +4,7 @@
     <v-icon>mdi-drag-horizontal</v-icon>
   </div>
 
-  <v-card-text class="pb-9 pt-0">
+  <v-card-text class="pt-0">
     <div class="d-flex flex-wrap">
       <v-textarea hide-details filled auto-grow rows="1" placeholder="Question" class="mr-10 question-textarea"
         v-model="questionText">
@@ -31,21 +31,21 @@
       @click:append-outer="answerOptions.splice(idx, 1)">
     </v-text-field>
 
+  </v-card-text>
+
+  <v-divider></v-divider>
+
+  <v-card-actions>
+    
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn fab small color="primary" class="mt-4 mb-n5 ml-n2" v-bind="attrs" v-on="on"
+        <v-btn fab small color="primary" v-bind="attrs" v-on="on"
           @click="answerOptions.push({ text: '' })">
           <v-icon>mdi-plus</v-icon>
         </v-btn>
       </template>
       <span>Add option</span>
     </v-tooltip>
-
-  </v-card-text>
-
-  <v-divider></v-divider>
-
-  <v-card-actions>
 
     <v-spacer></v-spacer>
 
@@ -55,7 +55,7 @@
           <v-icon>mdi-trash-can-outline</v-icon>
         </v-btn>
       </template>
-      <span>Delete</span>
+      <span>Delete question</span>
     </v-tooltip>
 
     <v-tooltip bottom>
@@ -64,13 +64,13 @@
           <v-icon>mdi-content-copy</v-icon>
         </v-btn>
       </template>
-      <span>Duplicate</span>
+      <span>Duplicate question</span>
     </v-tooltip>
 
-    <v-divider vertical class="mx-4"></v-divider>
+    <!-- <v-divider vertical class="mx-4"></v-divider>
 
     <span>Required</span>
-    <v-switch v-model="required" hide-details class="ml-3 mt-0 pt-0"></v-switch>
+    <v-switch v-model="required" hide-details class="ml-3 mt-0 pt-0"></v-switch> -->
   </v-card-actions>
 
 </v-card>

@@ -1,0 +1,15 @@
+$width-middle-breakpoint: 1100px;
+$width-large-breakpoint: 1400px;
+
+.pool-list-wrapper {
+  max-width: 1050px;
+  
+  @media all and (max-width: $width-large-breakpoint) {
+    max-width: 920px;
+  }
+
+  @media all and (max-width: $width-middle-breakpoint) {
+    max-width: 690px;
+  }
+
+}

@@ -37,27 +37,27 @@ import {
   },
 })
 export default class CplQuestionEdit extends Vue {
-  public questionTypes = [
+  private questionTypes = [
     {
-      text: 'Single chose',
+      text: 'Single choice',
       value: false,
     },
     {
-      text: 'Multiple chose',
+      text: 'Multiple choice',
       value: true,
     },
   ];
 
-  public answerOptions: Array<{ text: string }> = [
+  private answerOptions: Array<{ text: string }> = [
     {
       text: '',
     },
   ];
 
-  public isMultipleChoise = false;
+  private isMultipleChoise = false;
 
-  public required = true;
+  private required = true;
 
-  public questionText = '';
+  private questionText = '';
 
 }

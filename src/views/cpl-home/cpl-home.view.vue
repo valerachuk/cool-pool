@@ -6,6 +6,3 @@
 
 <style lang="scss" scoped src="./cpl-home.view.scss">
 </style>
-
-<style lang="css" scoped src="./cpl-home.view.css">
-</style>
