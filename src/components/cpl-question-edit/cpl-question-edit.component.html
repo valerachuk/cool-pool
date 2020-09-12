@@ -9,7 +9,7 @@
       <v-textarea hide-details filled auto-grow rows="1" placeholder="Question" class="mr-10 question-textarea"
         v-model="questionText">
       </v-textarea>
-      <v-select hide-details outlined :items="questionTypes" v-model="isMultipleChoise" class="question-type-select">
+      <v-select hide-details outlined :items="questionTypes" v-model="isMultipleChoise" class="question-type-select mt-4 mt-sm-0">
       </v-select>
     </div>
 
@@ -49,14 +49,18 @@
 
     <v-spacer></v-spacer>
 
-    <v-tooltip bottom v-if="deletable">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on" @click="$emit('delete')">
-          <v-icon>mdi-trash-can-outline</v-icon>
-        </v-btn>
-      </template>
-      <span>Delete question</span>
-    </v-tooltip>
+    <template v-if="deletable">
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on" @click="$emit('delete')">
+            <v-icon>mdi-trash-can-outline</v-icon>
+          </v-btn>
+        </template>
+        <span>Delete question</span>
+      </v-tooltip>
+      <v-divider vertical class="mx-1"></v-divider>
+    </template>
+    
 
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
@@ -67,9 +71,8 @@
       <span>Duplicate question</span>
     </v-tooltip>
 
-    <!-- <v-divider vertical class="mx-4"></v-divider>
 
-    <span>Required</span>
+    <!-- <span>Required</span>
     <v-switch v-model="required" hide-details class="ml-3 mt-0 pt-0"></v-switch> -->
   </v-card-actions>
 

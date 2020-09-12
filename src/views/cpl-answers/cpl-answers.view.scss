@@ -3,5 +3,13 @@
   grid-auto-flow: row;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
-  max-width: 1248px;
+  max-width: fit-content;
+  
+  @media (max-width: 1300px) {
+    grid-template-columns: repeat(2, 1fr);
+  }  
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
 }

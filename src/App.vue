@@ -5,41 +5,22 @@
       color="primary"
       dark
     >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+      <router-link class="d-flex align-center" to="/">
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+        <v-icon x-large class="mr-3 white--text">
+          mdi-form-select
+        </v-icon>
 
-      <v-spacer></v-spacer>
+        <h1 class="font-weight-medium white--text">Cool#Pool</h1>
 
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+      </router-link>
+
     </v-app-bar>
 
     <v-main>
       <router-view>
       </router-view>
+      <div class="main-spacer"></div>
     </v-main>
   </v-app>
 </template>
@@ -56,3 +37,13 @@ export default Vue.extend({
   }),
 });
 </script>
+
+<style lang="css">
+  .main-spacer {
+    height: 180px;
+  }
+
+  .v-main {
+    background-color: aliceblue;
+  }
+</style>

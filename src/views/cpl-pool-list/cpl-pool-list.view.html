@@ -1,5 +1,27 @@
-<div class="pool-list-wrapper mx-auto">
-  <v-data-table :headers="headers" :items="pools">
-
+<div class="table-wrapper mx-auto">
+  <v-data-table :headers="headers" :items="pools" class="mt-4 mt-sm-8 elevation-2 mx-sm-10" :search="search">
+    <template v-slot:top>
+      <v-toolbar flat color="white">
+        <v-toolbar-title class="d-none d-sm-block">My Pools</v-toolbar-title>
+        <v-divider class="mx-4 d-none d-sm-block" inset vertical></v-divider>
+        <v-text-field append-icon="mdi-magnify" label="Search" single-line hide-details v-model="search"></v-text-field>
+        <v-divider class="mx-4" inset vertical></v-divider>
+        <v-btn color="primary" dark class="mb-2">New Pool</v-btn>
+      </v-toolbar>
+    </template>
+    <template v-slot:item.actions="{ item }">
+      <v-icon class="mr-2" @click="">
+        mdi-pencil
+      </v-icon>
+      <v-icon class="mr-2" @click="">
+        mdi-delete
+      </v-icon>
+      <v-icon class="mr-2" @click="">
+        mdi-link
+      </v-icon>
+      <v-icon @click="">
+        mdi-eye
+      </v-icon>
+    </template>
   </v-data-table>
 </div>

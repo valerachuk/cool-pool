@@ -1,12 +1,30 @@
 import { Component, Vue } from 'vue-property-decorator';
-import { VDataTable } from 'vuetify/lib';
+import {
+  VDataTable,
+  VIcon,
+  VToolbar,
+  VDivider,
+  VSpacer,
+  VBtn,
+  VToolbarTitle,
+  VTextField,
+} from 'vuetify/lib';
 
 @Component({
   components: {
     VDataTable,
+    VIcon,
+    VToolbar,
+    VDivider,
+    VSpacer,
+    VBtn,
+    VToolbarTitle,
+    VTextField,
   },
 })
 export default class CplPoolList extends Vue {
+
+  private search = '';
 
   private pools = [
     {
@@ -73,6 +91,11 @@ export default class CplPoolList extends Vue {
     {
       text: 'Answers',
       value: 'answers',
+    },
+    {
+      text: 'Actions',
+      value: 'actions',
+      sortable: false,
     },
   ];
 }
