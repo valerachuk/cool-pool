@@ -15,8 +15,8 @@ const routes: RouteConfig[] = [
     component: CplHome,
   },
   {
-    path: '/edit',
-    name: 'Edit',
+    path: '/new',
+    name: 'New',
     component: CplFormEdit,
   },
   {
@@ -25,7 +25,7 @@ const routes: RouteConfig[] = [
     component: CplPoolList,
   },
   {
-    path: '/answers',
+    path: '/answers/:id',
     name: 'Answers',
     component: CplAnswers,
   },

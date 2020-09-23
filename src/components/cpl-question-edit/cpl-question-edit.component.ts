@@ -1,4 +1,6 @@
 import { Component, Vue } from 'vue-property-decorator';
+import { IQuestionEditCard } from '@/interfaces.ts';
+import { notEmpty } from '@/validtaion.ts';
 import {
   VCard,
   VCardText,
@@ -34,6 +36,10 @@ import {
       type: Boolean,
       required: true,
     },
+    value: {
+      type: Object,
+      required: true,
+    },
   },
 })
 export default class CplQuestionEdit extends Vue {
@@ -48,16 +54,16 @@ export default class CplQuestionEdit extends Vue {
     },
   ];
 
-  private answerOptions: Array<{ text: string }> = [
-    {
-      text: '',
-    },
-  ];
+  private readonly notEmpty = notEmpty;
 
-  private isMultipleChoise = false;
-
-  private required = true;
-
-  private questionText = '';
+  private questionValue: IQuestionEditCard = {
+    title: '',
+    isMultiple: false,
+    answerOptions: [
+      {
+        text: '',
+      },
+    ],
+  };
 
 }

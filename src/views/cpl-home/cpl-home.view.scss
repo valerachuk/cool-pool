@@ -1,0 +1,10 @@
+.card-wrapper {
+  max-width: 1010px + 4px * 8 * 2;
+  h1 {
+    word-break: break-word;
+    line-height: 1em;
+    @media (max-width: 400px)  {
+      font-size: 1.5em;
+    }
+  }
+}

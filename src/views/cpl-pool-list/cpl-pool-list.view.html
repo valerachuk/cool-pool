@@ -1,27 +1,76 @@
 <div class="table-wrapper mx-auto">
-  <v-data-table :headers="headers" :items="pools" class="mt-4 mt-sm-8 elevation-2 mx-sm-10" :search="search">
+
+  <v-dialog v-model="deleteDialog" max-width="390">
+    <v-card>
+      <v-card-title>Delete "{{ pendingToDelete && pendingToDelete.title }}" ?</v-card-title>
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+
+        <v-btn color="primary" text @click="deleteDialog = false">
+          Cancel
+        </v-btn>
+
+        <v-btn color="error" text @click="deleteDialog = false; deletedSnackbar = true; deleteEntry();">
+          Agree
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <v-snackbar v-model="clipboardSnackbar" timeout="3000">
+    <v-icon class="mr-2">mdi-link</v-icon>
+    URL has been copied!
+  </v-snackbar>
+
+  <v-snackbar v-model="deletedSnackbar" timeout="3000">
+    <v-icon class="mr-2">mdi-delete</v-icon>
+    "{{ pendingToDelete && pendingToDelete.title }}" has been deleted
+  </v-snackbar>
+
+  <v-data-table :headers="headers" :items="pools" class="mt-4 mt-sm-8 elevation-2 mx-sm-10" :search="search"
+    :custom-sort="customSorter">
     <template v-slot:top>
       <v-toolbar flat color="white">
         <v-toolbar-title class="d-none d-sm-block">My Pools</v-toolbar-title>
         <v-divider class="mx-4 d-none d-sm-block" inset vertical></v-divider>
         <v-text-field append-icon="mdi-magnify" label="Search" single-line hide-details v-model="search"></v-text-field>
         <v-divider class="mx-4" inset vertical></v-divider>
-        <v-btn color="primary" dark class="mb-2">New Pool</v-btn>
+        <v-btn color="primary" dark :to="{name: 'New'}">New Pool</v-btn>
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
-      <v-icon class="mr-2" @click="">
-        mdi-pencil
-      </v-icon>
-      <v-icon class="mr-2" @click="">
-        mdi-delete
-      </v-icon>
-      <v-icon class="mr-2" @click="">
-        mdi-link
-      </v-icon>
-      <v-icon @click="">
-        mdi-eye
-      </v-icon>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on" :to="{ name: 'Answers', params:{ id: item.id }}">
+            <v-icon>mdi-eye</v-icon>
+          </v-btn>
+        </template>
+        <span>View results</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on" @click="clipboardSnackbar = true">
+            <v-icon>mdi-link</v-icon>
+          </v-btn>
+        </template>
+        <span>Copy sharing link</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on" @click="deleteDialog = true; pendingToDelete = item">
+            <v-icon>mdi-delete</v-icon>
+          </v-btn>
+        </template>
+        <span>Delete</span>
+      </v-tooltip>
+    </template>
+    <template v-slot:item.creationDate="{ item }">
+      {{ item.creationDate | date }}
+    </template>
+    <template v-slot:item.lastFillDate="{ item }">
+      {{ item.lastFillDate | date }}
     </template>
   </v-data-table>
+  <div class="main-spacer"></div>
 </div>

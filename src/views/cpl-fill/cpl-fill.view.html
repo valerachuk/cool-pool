@@ -1,18 +1,56 @@
 <div class="cards-wrapper mx-auto mt-8">
-  <v-card>
-    <v-card-title>
-      <h2 class="font-weight-regular">
-        Lorem, ipsum dolor.
-      </h2>
-    </v-card-title>
-    <v-card-text>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deserunt, asperiores incidunt, quae nobis similique sequi vitae officia sapiente et repellendus iusto repudiandae totam odio illo rem iure eos aliquam. Porro, voluptatibus? Impedit quod quis illo, beatae labore voluptatem doloribus voluptate!
-    </v-card-text>
-  </v-card>
-  <cpl-fill-card></cpl-fill-card>
-  <cpl-fill-card></cpl-fill-card>
-  <cpl-fill-card></cpl-fill-card>
-  <v-btn color="primary">
-    Send
-  </v-btn>
+
+  <v-dialog v-model="fixErrorsDialog" max-width="310">
+    <v-card>
+      <v-card-title>Please, answer all questions</v-card-title>
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+
+        <v-btn color="primary" text @click="fixErrorsDialog = false">
+          Ok
+        </v-btn>
+
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <v-dialog v-model="sendFormDialog" persistent max-width="330">
+    <v-card v-if="!isFormSent">
+      <v-card-title class="card-title">Processing your answer...</v-card-title>
+      <v-card-text class="d-flex justify-center">
+        <v-progress-circular indeterminate size="70" width="6" color="primary"></v-progress-circular>
+      </v-card-text>
+    </v-card>
+    <v-card v-else>
+      <v-card-title class="card-title">Thank you</v-card-title>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+
+        <v-btn color="success" text :to="{name: 'Home'}">
+          Ok
+        </v-btn>
+
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <v-form ref="form">
+    <v-card>
+      <v-card-title>
+        <h2 class="font-weight-regular">
+          {{ mockPool.title }}
+        </h2>
+      </v-card-title>
+      <v-card-subtitle>
+        {{ mockPool.description }}
+      </v-card-subtitle>
+    </v-card>
+    <cpl-fill-card v-for="(question, idx) of mockPool.questions" :key="idx" :data="question">
+    </cpl-fill-card>
+    <v-btn color="primary" block x-large @click="sendForm()">
+      Send
+    </v-btn>
+  </v-form>
+  <div class="main-spacer"></div>
 </div>

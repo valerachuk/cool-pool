@@ -1,16 +1,14 @@
 <v-card class="my-4">
   <v-card-title>
-    Lorem ipsum dolor sit.
+    {{ data.title }}
   </v-card-title>
   <v-card-text>
-    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum eveniet vel sunt, numquam quasi, accusantium quisquam corporis illum vero nulla debitis neque quas maiores? Iste nisi perspiciatis velit nam nulla?
-    <v-radio-group>
-      <v-radio
-        v-for="n in 3"
-        :key="n"
-        label="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nostrum eveniet vel sunt, numquam quasi, accusantium quisquam corporis illum vero nulla debitis neque quas maiores? Iste nisi perspiciatis velit nam nulla?"
-        :value="n"
-      ></v-radio>
+    <v-radio-group v-if="!data.isMultiple" class="mt-0 pt-0" v-model="radios" :rules="[notNullUndef]" hide-details>
+      <v-radio v-for="(option, idx) of data.options" :key="idx" :label="option" :value="idx"></v-radio>
     </v-radio-group>
+    <template v-else>
+      <v-checkbox v-for="(option, idx) of data.options" v-model="checkboxes" :key="idx" :value="idx" :label="option"
+        hide-details class="mt-0 mb-1" :rules="[checkboxNotEmpty]"></v-checkbox>
+    </template>
   </v-card-text>
 </v-card>

@@ -1,8 +1,8 @@
-<v-card class="ma-2" width="400">
+<v-card class="ma-2" width="332">
   <v-card-title>
-    <h4 class="text-center card-title font-weight-medium">Какой фирмы у вас мышь ?</h4>
+    <h4 class="text-center card-title font-weight-medium">{{ value.name }}</h4>
   </v-card-title>
   <v-card-text>
-    <vue-apex-charts type="pie" height="450" :options="chartOptions" :series="series"></vue-apex-charts>
+    <vue-apex-charts type="pie" height="400" :options="chartOptions" :series="series"></vue-apex-charts>
   </v-card-text>
 </v-card>

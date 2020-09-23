@@ -1,4 +1,6 @@
 import { Component, Vue } from 'vue-property-decorator';
+import poolList from '@/mock/poolList1.ts';
+import { IPoolInfo } from '@/interfaces.ts';
 import {
   VDataTable,
   VIcon,
@@ -8,6 +10,12 @@ import {
   VBtn,
   VToolbarTitle,
   VTextField,
+  VTooltip,
+  VSnackbar,
+  VDialog,
+  VCard,
+  VCardTitle,
+  VCardActions,
 } from 'vuetify/lib';
 
 @Component({
@@ -20,77 +28,39 @@ import {
     VBtn,
     VToolbarTitle,
     VTextField,
+    VTooltip,
+    VSnackbar,
+    VDialog,
+    VCard,
+    VCardTitle,
+    VCardActions,
   },
 })
 export default class CplPoolList extends Vue {
 
+  private deletedSnackbar = false;
+  private deleteDialog = false;
+  private clipboardSnackbar = false;
   private search = '';
-
-  private pools = [
-    {
-      name: 'Form a1',
-      creationDate: '01.04.2010',
-      answers: 100,
-    },
-    {
-      name: 'Phone models',
-      creationDate: '11.04.2011',
-      answers: 120,
-    },
-    {
-      name: 'Form a2',
-      creationDate: '06.04.2010',
-      answers: 1000,
-    },
-    {
-      name: 'Form a6',
-      creationDate: '12.12.2017',
-      answers: 578,
-    },
-    {
-      name: 'Form a2',
-      creationDate: '06.05.2017',
-      answers: 3,
-    },
-    {
-      name: 'Form a112',
-      creationDate: '30.06.2015',
-      answers: 9232,
-    },
-    {
-      name: 'Form a1qwf',
-      creationDate: '01.05.2010',
-      answers: 10,
-    },
-    {
-      name: 'Form aqqq1',
-      creationDate: '01.07.2010',
-      answers: 750,
-    },
-    {
-      name: 'Fqform aqeg1',
-      creationDate: '01.08.2010',
-      answers: 1005,
-    },
-    {
-      name: 'Form qqqqa1',
-      creationDate: '01.12.2010',
-      answers: 10,
-    },
-  ];
+  private pools = poolList;
+  private pendingToDelete: IPoolInfo | null = null;
 
   private headers = [
     {
       text: 'Name',
-      value: 'name',
+      value: 'title',
     },
     {
       text: 'Creation date',
       value: 'creationDate',
     },
     {
+      text: 'Last Fill',
+      value: 'lastFillDate',
+    },
+    {
       text: 'Answers',
-      value: 'answers',
+      value: 'answersCount',
     },
     {
       text: 'Actions',
@@ -98,4 +68,25 @@ export default class CplPoolList extends Vue {
       sortable: false,
     },
   ];
+
+  private deleteEntry(): void {
+    this.pools = this.pools.filter((pool: IPoolInfo) => pool.id !== this.pendingToDelete!.id);
+  }
+
+  private customSorter(items: any[], index: string[], isDesc: boolean[]): any[] {
+
+    if (index[0] === 'title') {
+      items.sort((a, b) => a.title > b.title ? 1 : a.title === b.title ? 0 : -1 );
+    } else if (!index[0]) {
+      items.sort((a, b) => a.creationDate - b.creationDate);
+    } else {
+      items.sort((a, b) => a[index[0]] - b[index[0]]);
+    }
+
+    if (isDesc[0]) {
+      items.reverse();
+    }
+
+    return items;
+  }
 }

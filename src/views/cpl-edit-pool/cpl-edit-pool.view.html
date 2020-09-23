@@ -1,32 +1,67 @@
 <div class="cards-wrapper mx-auto mt-8">
 
-  <v-card class="my-4">
-    <v-card-text>
-      <div class="d-flex flex-nowrap align-center">
-        <v-textarea hide-details auto-grow rows="1" placeholder="New form" class="form-name-input mt-0"
-          v-model="formName">
-        </v-textarea>
-        <v-btn color="primary" class="ml-4">Save</v-btn>
-      </div>
-      <v-textarea hide-details auto-grow rows="1" placeholder="Form description" class="pt-1 mb-2"
-        v-model="formDescription">
-      </v-textarea>
-    </v-card-text>
-  </v-card>
+  <v-dialog v-model="fixErrorsDialog" max-width="290">
+    <v-card>
+      <v-card-title>Please, fill empty fields</v-card-title>
 
+      <v-card-actions>
+        <v-spacer></v-spacer>
 
-  <cpl-question-edit v-for="(q, idx) of questions" :key="idx" @delete="questions.splice(idx, 1)"
-    :deletable="questions.length > 1"></cpl-question-edit>
-
-  <div class="d-flex justify-end">
-    <v-tooltip bottom>
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn fab color="primary" class="mt-2" v-bind="attrs" v-on="on" @click="questions.push(null)">
-          <v-icon large>mdi-plus</v-icon>
+        <v-btn color="primary" text @click="fixErrorsDialog = false">
+          Ok
         </v-btn>
-      </template>
-      <span>Add question</span>
-    </v-tooltip>
-  </div>
 
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <v-dialog v-model="sendFormDialog" persistent max-width="330">
+    <v-card v-if="!isFormSent">
+      <v-card-title class="card-title">Processing the your pool...</v-card-title>
+      <v-card-text class="d-flex justify-center">
+        <v-progress-circular indeterminate size="70" width="6" color="primary"></v-progress-circular>
+      </v-card-text>
+    </v-card>
+    <v-card v-else>
+      <v-card-title class="card-title">Your pool has been uploaded successfully</v-card-title>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+
+        <v-btn color="success" text :to="{ name: 'List' }">
+          Continue
+        </v-btn>
+
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <v-form ref="form">
+    <v-card class="my-4">
+      <v-card-text>
+        <div class="d-flex flex-nowrap align-center">
+          <v-textarea hide-details auto-grow rows="1" placeholder="New form" class="form-name-input mt-0"
+            v-model="formName" :rules="[notEmpty]">
+          </v-textarea>
+          <v-btn color="primary" class="ml-4" @click='sendForm()'>Save</v-btn>
+        </div>
+        <v-textarea hide-details auto-grow rows="1" placeholder="Form description" class="pt-1 mb-2"
+          v-model="formDescription">
+        </v-textarea>
+      </v-card-text>
+    </v-card>
+
+    <cpl-question-edit v-for="(question, idx) of questions" :key="idx" @delete="questions.splice(idx, 1)"
+      :deletable="questions.length > 1" :value="question" @duplicate="questions.splice(idx, 0, JSON.parse(JSON.stringify(question)))"></cpl-question-edit>
+
+    <div class="d-flex justify-end">
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn fab color="primary" class="mt-2" v-bind="attrs" v-on="on" @click="questions.push(emptyQuestion)">
+            <v-icon large>mdi-plus</v-icon>
+          </v-btn>
+        </template>
+        <span>Add question</span>
+      </v-tooltip>
+    </div>
+  </v-form>
 </div>

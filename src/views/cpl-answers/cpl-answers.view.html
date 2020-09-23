@@ -1,9 +1,24 @@
-<!-- <div class="cards-wrapper mx-auto"> -->
-<div class="answers-wrapper mx-auto mt-4">
-  <cpl-answer-card></cpl-answer-card>
-  <cpl-answer-card></cpl-answer-card>
-  <cpl-answer-card></cpl-answer-card>
-  <cpl-answer-card></cpl-answer-card>
-  <cpl-answer-card></cpl-answer-card>
-  <div></div>
+<div class="mt-8">
+  <div class="mx-auto title-card">
+    <v-card class="mx-5">
+      <v-card-title>
+        <h2 class="font-weight-regular">
+          {{ pool.title }}
+        </h2>
+      </v-card-title>
+      <v-card-subtitle>
+        {{ pool.description }}
+      </v-card-subtitle>
+      <v-card-text>
+        <div>Last fill: {{ pool.lastFillDate | date }}</div>
+        <div>Created: {{ pool.creationDate | date }}</div>
+        <div>Answers: {{ pool.answersCount }}</div>
+      </v-card-text>
+    </v-card>
+  </div>
+  <div class="answers-wrapper mx-auto mt-4">
+    <cpl-answer-card v-for="(answer, idx) of pool.answers" :value="answer" :key="idx">
+    </cpl-answer-card>
+  </div>
+  <div class="main-spacer"></div>
 </div>
