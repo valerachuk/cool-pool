@@ -2,6 +2,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { IQuestionEditCard } from '@/interfaces.ts';
 import CplQuestionEdit from '@/components/cpl-question-edit/cpl-question-edit.component.vue';
 import { notEmpty } from '@/validtaion.ts';
+import draggable from 'vuedraggable';
 import {
   VCard,
   VCardText,
@@ -20,6 +21,7 @@ import {
 
 @Component({
   components: {
+    draggable,
     CplQuestionEdit,
     VCard,
     VCardText,
@@ -58,7 +60,7 @@ export default class CplFormEdit extends Vue {
 
   private readonly notEmpty = notEmpty;
 
-  private get emptyQuestion(): IQuestionEditCard {
+  private emptyQuestion(): IQuestionEditCard {
     return JSON.parse(JSON.stringify({
       title: '',
       isMultiple: false,

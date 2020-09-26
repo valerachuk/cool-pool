@@ -50,13 +50,16 @@
       </v-card-text>
     </v-card>
 
-    <cpl-question-edit v-for="(question, idx) of questions" :key="idx" @delete="questions.splice(idx, 1)"
-      :deletable="questions.length > 1" :value="question" @duplicate="questions.splice(idx, 0, JSON.parse(JSON.stringify(question)))"></cpl-question-edit>
+    <draggable :list="questions" handle=".drag-handle">
+      <cpl-question-edit v-for="(question, idx) of questions" :key="idx" @delete="questions.splice(idx, 1)"
+        :deletable="questions.length > 1" :value="question"
+        @duplicate="questions.splice(idx, 0, JSON.parse(JSON.stringify(question)))"></cpl-question-edit>
+    </draggable>
 
     <div class="d-flex justify-end">
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn fab color="primary" class="mt-2" v-bind="attrs" v-on="on" @click="questions.push(emptyQuestion)">
+          <v-btn fab color="primary" class="mt-2" v-bind="attrs" v-on="on" @click="questions.push(emptyQuestion())">
             <v-icon large>mdi-plus</v-icon>
           </v-btn>
         </template>
