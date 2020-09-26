@@ -91,7 +91,7 @@ export default class CplPoolList extends Vue {
   }
 
   private copy(id: string): void {
-    (this as unknown as { $clipboard: (str: string) => void }).$clipboard(`${window.location.host}/#/fill/${id}`);
+    (this as unknown as { $clipboard: (str: string) => void }).$clipboard(`${window.location.host}${window.location.pathname}#/fill/${id}`);
   }
 
 }
