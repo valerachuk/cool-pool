@@ -14,7 +14,7 @@
 
   <v-spacer></v-spacer>
 
-  <v-chip color="white" class="mr-1 font-weight-medium sign-in-text" @click="isSignedIn = !isSignedIn" outlined>
+  <v-chip v-if="$route.name !== 'Fill'" color="white" class="mr-1 font-weight-medium sign-in-text" @click="isSignedIn = !isSignedIn" outlined>
     <v-icon left>
       {{ isSignedIn ? 'mdi-account' : 'mdi-google' }}
     </v-icon>

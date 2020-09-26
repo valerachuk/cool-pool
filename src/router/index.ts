@@ -30,7 +30,7 @@ const routes: RouteConfig[] = [
     component: CplAnswers,
   },
   {
-    path: '/fill',
+    path: '/fill/:id',
     name: 'Fill',
     component: CplFill,
   },

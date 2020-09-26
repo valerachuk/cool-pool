@@ -50,7 +50,7 @@
       </v-tooltip>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on" @click="clipboardSnackbar = true">
+          <v-btn icon v-bind="attrs" v-on="on" @click="clipboardSnackbar = true; copy(item.id);">
             <v-icon>mdi-link</v-icon>
           </v-btn>
         </template>

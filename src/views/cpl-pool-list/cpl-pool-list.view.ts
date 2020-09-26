@@ -76,7 +76,7 @@ export default class CplPoolList extends Vue {
   private customSorter(items: any[], index: string[], isDesc: boolean[]): any[] {
 
     if (index[0] === 'title') {
-      items.sort((a, b) => a.title > b.title ? 1 : a.title === b.title ? 0 : -1 );
+      items.sort((a, b) => a.title > b.title ? 1 : a.title === b.title ? 0 : -1);
     } else if (!index[0]) {
       items.sort((a, b) => a.creationDate - b.creationDate);
     } else {
@@ -89,4 +89,9 @@ export default class CplPoolList extends Vue {
 
     return items;
   }
+
+  private copy(id: string): void {
+    (this as unknown as { $clipboard: (str: string) => void }).$clipboard(`${window.location.host}/#/fill/${id}`);
+  }
+
 }
