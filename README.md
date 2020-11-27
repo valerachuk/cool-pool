@@ -6,4 +6,7 @@ Social pools web application **layout**
 - [Typescript](https://www.typescriptlang.org/)
 
 ## Docs
-Docs created with [VuePress](https://vuepress.vuejs.org/)
+- Docs created with [VuePress](https://vuepress.vuejs.org/)
+
+## Github Pages
+- https://valerachuk.github.io/cool-pool/
